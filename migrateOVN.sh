@@ -234,7 +234,9 @@ nmcli conn mod ovs-if-br-ex 802-3-ethernet.mtu ${iface_mtu} 802-3-ethernet.clone
 # restart NM to auto-activate connections as modified
 systemctl restart NetworkManager
 # give NM breathing time to settle
-sleep 5
+sleep 10
+# bring up the ovs interface
+nmcli conn up ovs-if-phys0
 
 # make sure ovs-if-phys0 is active for ${iface} is added to br-ex
 if ! wait_conn ovs-if-phys0; then
